@@ -30,7 +30,7 @@ __meta__ = {
 }
 
 [node name="Ground3" type="StaticBody2D" parent="."]
-position = Vector2( 923.138, 314.211 )
+position = Vector2( 923.138, 299.106 )
 collision_layer = 2
 __meta__ = {
 "_edit_group_": true
@@ -40,6 +40,45 @@ __meta__ = {
 shape = SubResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="Ground3"]
+margin_left = -532.0
+margin_top = -9.0
+margin_right = 533.0
+margin_bottom = 10.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ground6" type="StaticBody2D" parent="."]
+position = Vector2( 759.498, 885.692 )
+collision_layer = 2
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground6"]
+shape = SubResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="Ground6"]
+margin_left = -532.0
+margin_top = -9.0
+margin_right = 533.0
+margin_bottom = 10.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ground7" type="StaticBody2D" parent="."]
+position = Vector2( 1949.26, 662.611 )
+rotation = -0.375763
+collision_layer = 2
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground7"]
+shape = SubResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="Ground7"]
 margin_left = -532.0
 margin_top = -9.0
 margin_right = 533.0
@@ -119,3 +158,6 @@ margin_bottom = 26.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true

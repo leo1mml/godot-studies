@@ -23,7 +23,7 @@ func _ready():
 func get_input(delta):
 	var right = Input.is_action_pressed('ui_right')
 	var left = Input.is_action_pressed('ui_left')
-	var jump = Input.is_action_just_pressed('ui_select')
+	var jump = Input.is_action_just_pressed("jump")
 	time_on_air = time_on_air + delta if !is_on_floor() else 0.0
 
 	if time_on_air <= time_on_air_to_jump and jump:
@@ -34,7 +34,6 @@ func get_input(delta):
 		velocity.x = -run_speed
 	else:
 		velocity.x = 0
-	print(velocity.x)
 
 func _physics_process(delta):
 	velocity.y += gravity * delta
