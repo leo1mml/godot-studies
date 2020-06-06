@@ -7,7 +7,7 @@ var gravity: float
 var jump_speed: float
 var run_speed: float
 var velocity = Vector2()
-const time_on_air_to_jump = 0.2
+const MAX_TIME_ON_AIR_TO_JUMP = 0.2
 var time_on_air = 0.0
 
 
@@ -23,10 +23,10 @@ func _ready():
 func get_input(delta):
 	var right = Input.is_action_pressed('ui_right')
 	var left = Input.is_action_pressed('ui_left')
-	var jump = Input.is_action_just_pressed("jump")
+	var isJumpJustPressed = Input.is_action_just_pressed("jump")
 	time_on_air = time_on_air + delta if !is_on_floor() else 0.0
 
-	if time_on_air <= time_on_air_to_jump and jump:
+	if time_on_air <= MAX_TIME_ON_AIR_TO_JUMP and isJumpJustPressed:
 		velocity.y = jump_speed
 	if right:
 		velocity.x = run_speed
@@ -36,6 +36,7 @@ func get_input(delta):
 		velocity.x = 0
 
 func _physics_process(delta):
+	var snap = Vector2.DOWN * 16 if is_on_floor() else Vector2.ZERO
 	velocity.y += gravity * delta
 	get_input(delta)
-	velocity = move_and_slide(velocity, Vector2(0, -1), true)
+	velocity = move_and_slide_with_snap(velocity, snap, Vector2.UP, true)
