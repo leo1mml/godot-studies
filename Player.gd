@@ -1,5 +1,10 @@
 extends KinematicBody2D
 
+enum Direction {
+	right
+	left
+}
+
 export var jumpMultiplier = 7
 export var jumpApexTime = 0.4
 export var player_acceleration = 10
@@ -9,6 +14,7 @@ var run_speed: float
 var velocity = Vector2()
 const MAX_TIME_ON_AIR_TO_JUMP = 0.2
 var time_on_air = 0.0
+var direction = Direction.right
 
 
 # Called when the node enters the scene tree for the first time.
@@ -39,4 +45,21 @@ func _physics_process(delta):
 	var snap = Vector2.DOWN * 16 if is_on_floor() else Vector2.ZERO
 	velocity.y += gravity * delta
 	get_input(delta)
-	velocity = move_and_slide_with_snap(velocity, snap, Vector2.UP, true)
+	velocity = move_and_slide_with_snap(velocity, snap, Vector2.UP)
+	set_animation(velocity)
+
+func set_animation(velocity):
+	var animatedSprite = $AnimatedSprite
+	if velocity.x < 0.011 && velocity.x > -0.011 && is_on_floor():
+		animatedSprite.play("Idle")
+	elif velocity.y != 0 && !is_on_floor():
+		animatedSprite.play("Jump")
+	else:
+		animatedSprite.play("Run")
+	flip_if_necessary(velocity, animatedSprite)
+
+func flip_if_necessary(velocity, animatedSprite):
+	if velocity.x < 0 && direction == Direction.right:
+		animatedSprite.set_flip_h(true)
+	elif velocity.x > 0:
+		animatedSprite.set_flip_h(false)
